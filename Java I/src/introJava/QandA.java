@@ -8,7 +8,7 @@ public class QandA {
 		System.out.println("");
 		
 		System.out.println("What do you do outside of school?");
-		System.out.println("I like to play videogames outside of school (mainly valorant).");
+		System.out.println("I like to play videogames outside of school (mainly valorant)..");
 		System.out.println("");
 		
 		System.out.println("What is your favorite class?");
