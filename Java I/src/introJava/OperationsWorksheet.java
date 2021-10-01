@@ -15,7 +15,6 @@ public class OperationsWorksheet {
 	public static void main(String[] args) {
 		
 		OperationsWorksheet runner = new OperationsWorksheet();
-		
 		for (Integer i = 0; i < 6000; i++ ) {
 			runner.numToChar(i);
 		}
