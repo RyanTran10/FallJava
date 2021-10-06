@@ -65,7 +65,8 @@ public class ScannersConditionals {
 		int fieldGoals = input.nextInt();
 		System.out.println("Pick a number of Total points: ");
 		int points = input.nextInt();
-		// Idk where to go from here
+		// Idk where to go from here other than doing brute force if for loops
+		
 	
 		
 		
@@ -75,8 +76,8 @@ public class ScannersConditionals {
 		System.out.println("Pick a num between 0 and 999! ");
 		int num = input.nextInt();
 		int ones = num % 10;
-		int tens = num % 100 - ones;
-		int hundreds = num - tens - ones;
+		int tens = num % 100;
+		int hundreds = num;
 		
 		tens = tens/10;
 		hundreds = hundreds/100;
