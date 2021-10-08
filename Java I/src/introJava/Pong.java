@@ -30,7 +30,7 @@ public class Pong extends JPanel implements KeyListener {
 	private int ballXCord = WIDTH/2;
 	private int ballYCord = HEIGHT/2;
 	private int ballXSpeed = 3;
-	private int ballYSpeed = 5;
+	private int ballYSpeed = 4;
 	
 	private int paddle1XCord = 0;
 	private int paddle1YCord = HEIGHT/2;
@@ -75,6 +75,14 @@ public class Pong extends JPanel implements KeyListener {
 		}
 		
 		if (ballXCord < 0 || (ballXCord + DIAM) > WIDTH) {
+			ballXSpeed *= -1;
+		}
+		
+		if (ballYCord > paddle1YCord && ballYCord < paddle1YCord + PADDLE_HEIGHT && ballXCord < paddle1XCord + PADDLE_WIDTH) {
+			ballXSpeed *= -1;
+		}
+		
+		if (ballYCord > paddle2YCord && ballYCord < paddle2YCord + PADDLE_HEIGHT && ballXCord > paddle2XCord) {
 			ballXSpeed *= -1;
 		}
 	}
