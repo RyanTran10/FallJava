@@ -133,7 +133,7 @@ public class Pong extends JPanel implements KeyListener {
 			if (Math.random() >= 0.3) {
 				error += Math.random()/10;
 				
-				if 
+//				if (ballYCord > paddle2YCord )
 				
 				
 				paddle2YCord = ballYCord - PADDLE_HEIGHT/2 + (int)error;
