@@ -29,6 +29,10 @@ public class StartingWithLoops {
 			x = y;
 			y = holder;
 		}
+		while (x <= y) {
+			System.out.println(x);
+			x++;
+		}
 	}
 	
 	//Definite Finite
@@ -55,6 +59,7 @@ public class StartingWithLoops {
 		System.out.println("There is no perfect root of " + num);
 	}
 	
+	//Definite Finite
 	public void biggestNum() {
 		System.out.println("Enter a number: ");
 		int n = input.nextInt();
