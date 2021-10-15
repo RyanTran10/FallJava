@@ -42,6 +42,7 @@ public class TeamWorkLoops {
 	public void sum(int n) {
 		System.out.println(n * (n + 1)/2);
 	}
+	
 	public void average() {
 		int currentNum = 0;
 		int amount = 0;
