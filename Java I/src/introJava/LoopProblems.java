@@ -31,22 +31,8 @@ public class LoopProblems {
 		}
 		System.out.println(answer);
 	}
-	public void decode(int n) {
-		int nTemp=n;
-		int reverse=0;
-		int numSegment;
-		while(nTemp>=1) {
-			reverse=reverse*100+(nTemp%100);
-			nTemp /=100;
-		}
-		while (reverse%100>0) {
-			numSegment=reverse%100;
-			System.out.print((char)numSegment);
-			reverse/=100;
-		}
-	}
 	
-	public void decodeTest(int n) {
+	public void decode(int n) {
 		int reverse=0;
 		int numSegment;
 		while(n>=1) {
@@ -65,6 +51,6 @@ public class LoopProblems {
 		runner.firstNPowers(0, 0);
 		runner.reverseInt(12345);
 		runner.sum(0);
-		runner.decodeTest(656770);
+		runner.decode(656770);
 	}
 }
