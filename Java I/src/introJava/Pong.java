@@ -68,6 +68,10 @@ public class Pong extends JPanel implements KeyListener {
 		ballMoving = false;
 		pressSpace = true;
 		error = 0;
+		if (solo) {
+			up2 = false;
+			down2 = false;
+		}
 	}
 	
 	//resets the lasers
@@ -133,14 +137,32 @@ public class Pong extends JPanel implements KeyListener {
 			if (Math.random() >= 0.3) {
 				error += Math.random()/10;
 				
-//				if (ballYCord > paddle2YCord )
+				if (ballYCord + DIAM/2 > paddle2YCord + PADDLE_HEIGHT/2 + (int)error) {
+					up2 = false;
+					down2 = true;
+				}
+				
+				if (ballYCord + DIAM/2 < paddle2YCord + PADDLE_HEIGHT/2 + (int)error) {
+					down2 = false;
+					up2 = true;
+				}
 				
 				
-				paddle2YCord = ballYCord - PADDLE_HEIGHT/2 + (int)error;
+//				paddle2YCord = ballYCord - PADDLE_HEIGHT/2 + (int)error;
 			}
 			else {
 				error -= Math.random()/10;
-				paddle2YCord = ballYCord - PADDLE_HEIGHT/2 + (int)error;
+//				paddle2YCord = ballYCord - PADDLE_HEIGHT/2 + (int)error;
+
+				if (ballYCord + DIAM/2 > paddle2YCord + PADDLE_HEIGHT/2 + (int)error) {
+					up2 = false;
+					down2 = true;
+				}
+				
+				if (ballYCord + DIAM/2 < paddle2YCord + PADDLE_HEIGHT/2 + (int)error) {
+					down2 = false;
+					up2 = true;
+				}
 			}
 		}
 	}
