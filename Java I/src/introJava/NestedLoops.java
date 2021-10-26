@@ -42,18 +42,54 @@ public class NestedLoops {
 		}
 	}
 	
-	public void primes(int x) {
-		for (int i = 0; i < 10000; i++) {
-			for (int j = 2; j < i; j++) {
-				if (i % j != 0) {
-					System.out.print(j + ", ");
+	public void primes(int n) {
+		for(int i = 1; i <= n; i++) {
+			boolean divisor = false;
+			for (int factor = 2; factor <= i/2; factor++) {
+				if (i%factor == 0) {
+					divisor = true;
+					break; 
 				}
+			}
+			if (!divisor) {
+				System.out.println(i++);
+			}
+		}
+	}
+	
+	public void starX(int n) {
+		int error = 0;
+		for (int row = 1; row <= n; row++) {
+			for (int j = 0; j < error; j++) {
+				System.out.print(" ");
+			}
+			if (row != (n+1)/2 && n%2 != 0) {
+				System.out.print("*");
+			}
+			else if (n%2 == 0){
+				System.out.print("*");
+			}
+			for (int mid = 1; mid <= n - 2*row; mid++) {
+				System.out.print(" ");
+			}
+			if (row > (n+1)/2) {
+				for (int mid = 3; mid <= 2*row - n; mid++) {
+					System.out.print(" ");
+				}
+			}
+			System.out.print("*");
+			System.out.println("");
+			if (row <= (n-1)/2) {
+				error++;
+			}
+			if (row > n/2) {
+				error--;
 			}
 		}
 	}
 	
 	public static void main(String[] args) {
 		NestedLoops runner = new NestedLoops();
-		runner.primes(5);
+		runner.starX(16);
 	}
 }
