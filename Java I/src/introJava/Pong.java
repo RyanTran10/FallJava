@@ -1,6 +1,6 @@
 package introJava;
 // filler code for pong provided by Mr. David
-
+// Controls w, s, e, space, up, down, 1, 2, backslash
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
