@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 
 public class FallingBlocksFiller extends JPanel {
 	
-	private int WIDTH = 800, HEIGHT = 600, NUMBLOCKS = 50, rectWidth = 10, rectHeight = 10;
+	private int WIDTH = 800, HEIGHT = 600, NUMBLOCKS = 2000, rectWidth = 10, rectHeight = 10;
 	private double[] speeds = new double[NUMBLOCKS];
 	private int[] xCords = new int[NUMBLOCKS];
 	private double[] yCords = new double[NUMBLOCKS];
