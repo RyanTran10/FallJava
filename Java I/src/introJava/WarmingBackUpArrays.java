@@ -3,8 +3,6 @@ package introJava;
 import java.util.Arrays;
 
 public class WarmingBackUpArrays {
-//	Write a method that takes a number n as parameter.
-//	You should then build an array containing the first n values of the Fibonacci sequence. Print this array.
 	public static void printEach(String[] arr) {
 		for (int i = 0; i < arr.length; i++) {
 			System.out.println(arr[i]);
@@ -83,6 +81,5 @@ public class WarmingBackUpArrays {
 	}
 	
 	public static void main(String[] args) {
-		printEach(new String[] {"I", "love", "C", "S"});
 	}
 }
