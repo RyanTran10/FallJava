@@ -73,21 +73,20 @@ public class WhackAMoleFillerChallenge {
    	 		moundX[i] = (int)(Math.random() * (windowWidth - moleWidth));
    	 		moundY[i] = (int)(Math.random() * (windowHeight/2 - moleHeight) + windowHeight/2);
    	 	}
-//   	 	for (int i = 0; i < mounds; i++) {
-//   	 		for (int j = 0; j < mounds; j++) {
-//   	 			//TODO
-//   	 		}
-//   	 	}
    	 	// spawn moles because of initial delay
    	 	spawnMoles();
+   	 	// redefines mole and mound sizes for when you scale window
+   	 	moundWidth = windowWidth/10;
+   	 	moundHeight = moundWidth/2;
+   	 	moleWidth = moundWidth;
+   	 	moleHeight = moundHeight*2;
     }
     // show how to spawn moles
     public void spawnMoles() {
+    	// only checks if you havent lost yet
     	if(!lost) {
-	    	// despawns all of the moles
-	    	for (int i = 0; i < MOUNDS; i++) {
-	   	 		moles[i] = false;
-	   	 	}
+    		// sets all of the moles to false
+	    	moles = new boolean[MOUNDS];
 	    	// spawns moles until it hits the amount appearing
 	    	for (int i = 0; i < MOLESAPPEARING; i++) {
 	    		int randNum = (int)(Math.random()*MOUNDS);
@@ -139,6 +138,7 @@ public class WhackAMoleFillerChallenge {
 	    		g.drawImage(Mole, windowWidth/4, windowHeight/4, windowWidth/2, windowHeight/2, null);
 	    		attackTimer.start();
 	    	}
+	    // shows lost screen if you lose
     	} else {
     		g.drawImage(BackgroundSky, 0, 0, windowWidth, windowHeight/3, null);
         	g.drawImage(BackgroundGrass, 0, windowHeight/3, windowWidth, windowHeight/3 * 2, null);
@@ -162,6 +162,7 @@ public class WhackAMoleFillerChallenge {
 	    		bigMole = false;
 	    		bigHealth = 5;
 	    		for (int i = 0; i < MOUNDS; i++) {
+	    			// checks if you click where a mole is
 		    		if (moles[i] == true && mouseX > moundX[i] && mouseX < moundX[i] + moleWidth && mouseY > moundY[i] - moleHeight/2 && mouseY < moundY[i] + moleHeight) {
 	    				score++;
 	    				moles[i] = false;
