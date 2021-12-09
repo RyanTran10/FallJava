@@ -1,5 +1,7 @@
 package introJava;
 
+import java.awt.Color;
+
 // Filler code for Whack a Mole by Mr. Friedman
 // Extra feature is a big mole and lives system
 // Must click big mole 5 times before the timestep happens otherwise you lose lives
@@ -24,24 +26,27 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-
+// if you see a big mole, click it 5 times before BIGMOLETIMESTEP runs out to not lose lives
+// if you lose too many lives you lose
+// click jumpscare 20 times for it to go away
 public class WhackAMoleFillerChallenge {
 
 	// size of the display area
     private int windowWidth = 800, windowHeight = 600, textHeight = 35;
     // images
-    private Image Mole, BackgroundGrass, BackgroundSky, Mound;
+    private Image Mole, BackgroundGrass, BackgroundSky, Mound, Jump;
     // constants
     private int MOUNDS = 10, MOLESAPPEARING = 2, TIMESTEP = 2000, BIGMOLETIMESTEP = 2000;
     // big mole variables
     private boolean bigMole = false;
-    private int bigHealth = 5;
+    private int bigHealth = 5, jumpClicks = 20;
     
     // mound and mole sizes
     private int moundWidth = windowWidth/10, moundHeight = moundWidth/2, moleWidth = moundWidth, moleHeight = moundHeight*2;
     // displayed text
     private int score = 0, lives = 100;
-    private boolean lost = false;
+    // important booleans
+    private boolean lost = false, jumpHappened = false, jump = false;
     // arrays
     private int[] moundX = new int[MOUNDS];
     private int[] moundY = new int[MOUNDS];
@@ -65,6 +70,7 @@ public class WhackAMoleFillerChallenge {
     	 BackgroundGrass = Toolkit.getDefaultToolkit().getImage("CompSciGrass.jpeg");
     	 BackgroundSky = Toolkit.getDefaultToolkit().getImage("CompSciSky.jpeg");
     	 Mound = Toolkit.getDefaultToolkit().getImage("CompSciMound-removebg-preview.png");
+    	 Jump = Toolkit.getDefaultToolkit().getImage("testing.jpeg");
     }
     
     // sets up my arrays
@@ -138,6 +144,11 @@ public class WhackAMoleFillerChallenge {
 	    		g.drawImage(Mole, windowWidth/4, windowHeight/4, windowWidth/2, windowHeight/2, null);
 	    		attackTimer.start();
 	    	}
+	    	if(jump) {
+	    		g.setColor(new Color(0,0,0));
+	    		g.fillRect(0, 0, windowWidth, windowHeight);
+	    		g.drawImage(Jump, (windowWidth-225)/2, (windowHeight-225)/2, 225, 225, null);
+	    	}
 	    // shows lost screen if you lose
     	} else {
     		g.drawImage(BackgroundSky, 0, 0, windowWidth, windowHeight/3, null);
@@ -150,7 +161,16 @@ public class WhackAMoleFillerChallenge {
 
     // what you want to happen when the mouse is clicked
     public void click(int mouseX, int mouseY) {
-    	if(!lost) {
+    	if(jump) {
+    		if(jumpClicks <= 0) {
+    			jump = false;
+    			jumpHappened = true;
+    		}
+    		else {
+    			jumpClicks--;
+    		}
+    	}
+    	else if(!lost) {
 	    	// checks if you click on the big mole
 	    	if (bigMole && bigHealth > 1) {
 	    		if (mouseX > windowWidth/4 && mouseX < (windowWidth/4)*3 && mouseY > windowHeight/4 && mouseY < (windowHeight/4)*3) {
@@ -169,7 +189,11 @@ public class WhackAMoleFillerChallenge {
 	    				
 	    				// chance to spawn big mole on mole click
 	    				if ((int)(Math.random() * 10) == 1) {
-	    					bigMole = true;
+	    					if(jumpHappened) {
+	    						bigMole = true;
+	    					} else {
+	    						jump = true;
+	    					}
 	    				}
 		    		}
 		    	}
@@ -185,6 +209,10 @@ public class WhackAMoleFillerChallenge {
     	bigMole = false;
     	bigHealth = 5;
     	lost = false;
+    	livesDisplay.setText("\t\tLives: " + lives);
+    	window.getContentPane().repaint();
+    	jumpHappened = false;
+    	jumpClicks = 20;
     }
 
 
