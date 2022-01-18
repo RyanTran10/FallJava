@@ -83,9 +83,6 @@ public class PhotoshopFiller extends Component {
         		int r = 255 - pixels[i][j].getRed();
         		int g = 255 - pixels[i][j].getGreen();
         		int b = 255 - pixels[i][j].getBlue();
-//        		if(r > 255) r = 255;
-//        		if(g > 255) g = 255;
-//        		if(b > 255) b = 255;
         		
         		pixels[i][j] = new Color(r, g, b);
         	}
@@ -133,7 +130,7 @@ public class PhotoshopFiller extends Component {
     public void blur() {
 		outputName = "blurred_" + outputName;
 		Color[][] temp = new Color[pixels.length][pixels[0].length];
-		int blurAmount = 20;
+		int blurAmount = 1;
 		for(int i = blurAmount; i < pixels.length-blurAmount; i++) {
 			for(int j = blurAmount; j < pixels[i].length-blurAmount; j++) {
 				int totalr = 0, totalg = 0, totalb = 0;
@@ -144,11 +141,19 @@ public class PhotoshopFiller extends Component {
 						totalb += pixels[i-k][j-l].getBlue();
 					}
 				}
-				pixels[i][j] = new Color(totalr/((blurAmount*2+1)*(blurAmount*2+1)), totalg/((blurAmount*2+1)*(blurAmount*2+1)), totalb/((blurAmount*2+1)*(blurAmount*2+1)));
+//				pixels[i][j] = new Color(totalr/((blurAmount*2+1)*(blurAmount*2+1)), totalg/((blurAmount*2+1)*(blurAmount*2+1)), totalb/((blurAmount*2+1)*(blurAmount*2+1)));
 				temp[i][j] = new Color(totalr/((blurAmount*2+1)*(blurAmount*2+1)), totalg/((blurAmount*2+1)*(blurAmount*2+1)), totalb/((blurAmount*2+1)*(blurAmount*2+1)));
 			}
 		}
-//		pixels = temp;
+		 for(int i = 0; i < pixels.length; i++) {
+        	temp[i][0] = new Color(0,0,0);
+        	temp[i][pixels[0].length-1] = new Color(0,0,0);
+        }
+        for(int i = 0; i < pixels[0].length; i++) {
+        	temp[0][i] = new Color(0,0,0);
+        	temp[pixels.length-1][i] = new Color(0,0,0);
+        }
+        pixels = temp;
 	}
     
     // this highlights the edges in the image, turning everything else black. 
@@ -169,9 +174,10 @@ public class PhotoshopFiller extends Component {
 						b += pixels[i-k][j-l].getBlue();
 					}
 				}
-				r = pixels[i][j].getRed()*9-r-pixels[i][j].getRed();
-				g = pixels[i][j].getRed()*9-g-pixels[i][j].getGreen();
-				b = pixels[i][j].getRed()*9-b-pixels[i][j].getBlue();
+				r = pixels[i][j].getRed()*8-(r-pixels[i][j].getRed());
+				g = pixels[i][j].getGreen()*8-(g-pixels[i][j].getGreen());
+				b = pixels[i][j].getBlue()*8-(b-pixels[i][j].getBlue());
+				
 				if(r > 255) r = 255;
         		else if(r < 0) r = 0;
         		if(g > 255) g = 255;
@@ -184,11 +190,11 @@ public class PhotoshopFiller extends Component {
 		}
         for(int i = 0; i < pixels.length; i++) {
         	temp[i][0] = new Color(0,0,0);
-        	temp[i][pixels[0].length] = new Color(0,0,0);
+        	temp[i][pixels[0].length-1] = new Color(0,0,0);
         }
         for(int i = 0; i < pixels[0].length; i++) {
         	temp[0][i] = new Color(0,0,0);
-        	temp[pixels.length][i] = new Color(0,0,0);
+        	temp[pixels.length-1][i] = new Color(0,0,0);
         }
         pixels = temp;
     }
