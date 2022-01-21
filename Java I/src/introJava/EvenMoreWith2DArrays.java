@@ -88,27 +88,12 @@ public class EvenMoreWith2DArrays {
 //	Hard: Write a method that takes a 2d array of doubles as a parameter. Your method should create a new 1d 
 //	array containing the sum of each column. 
 //
-	public static void addColumns(double[][] arr) {
-		double[] arr2 = new double[arr.length];
-		for(int i = 0; i < arr.length; i++) {
-			for(int j = 0; j < arr[i].length; j++) {
-				arr2[i] += arr[i][j];
-				System.out.println(Arrays.toString(arr2));
-			}
-		}
-		
-		for(double[] row: arr) {
-			System.out.println(Arrays.toString(row));
-		}
-		System.out.println(Arrays.toString(arr2));
-	}
-//
 //
 //	Challenge: Write a method that sorts a 2d array of integers.
 //
 //	Extra-challenge: Write a method that sorts the 2d array snake-style. So the first row will increase left 
 //	to right, the second row will increase right to left, third left to right, and so on.
 	public static void main(String[] args) {
-		addColumns(new double[][]{{1.0, 2.0, 3.0}, {4.0, 5.0, 6.0}});
+		reverse(new double[][]{{1.0, 2.0, 3.0}, {4.0, 5.0, 6.0}});
 	}
 }
