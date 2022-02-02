@@ -293,7 +293,7 @@ public class PhotoshopFiller extends Component {
 				second[i] = colors.get(i).get(0);
 	    	}
 	    	if (distanceArr(first, second) > 0) {
-	    		System.out.println(distanceArr(first, second));
+//	    		System.out.println(distanceArr(first, second));
 	    		run = true;
 	    	}
 	    	if(count > 110) {
