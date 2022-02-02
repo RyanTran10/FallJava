@@ -225,45 +225,28 @@ public class PhotoshopFiller extends Component {
         //sets the picture to the new array
         pixels = temp;
     }
+    // another distance formula
     public double distance1(Color c1, Color c2) {
-//    	System.out.println((c1.getRed()-c2.getRed())*(c1.getRed()-c2.getRed())+(c1.getGreen()-c2.getGreen())*(c1.getGreen()-c2.getGreen()+(c1.getBlue()-c2.getBlue())*(c1.getBlue()-c2.getBlue())));
 		return Math.sqrt((c1.getRed()-c2.getRed())*(c1.getRed()-c2.getRed())+(c1.getGreen()-c2.getGreen())*(c1.getGreen()-c2.getGreen()+(c1.getBlue()-c2.getBlue())*(c1.getBlue()-c2.getBlue())));	// fix this
     }
+    
+    // finds the distance between 2 color arrays
     public double distanceArr(Color[] c1, Color[] c2) {
     	double total = 0;
     	for(int i = 0; i < c1.length; i++) {
-    		System.out.println("distance = " + distance1(c1[i], c2[i]));
-    		System.out.println("colors = " + c1[i] + "" + c2[i]);
     		total += distance(c1[i], c2[i]);
-    		System.out.println("total = " + total);
-    		System.out.println("");
     	}
-    	System.out.println(total/c1.length);
     	return total/c1.length;
     }
     
-    
+    // kmeans method
     public void kmeans(int n) {
-    	//take 9 starting colors-come back to at end for random 
-    	
-    	// sort all pixels into which ever color it is closest too
-    	
-    	// average all those colors and use those as starting colors
-    	// run again till change is not noticable
     	outputName = "kmeans_" + outputName;
     	ArrayList<ArrayList<Color>> colors = new ArrayList<ArrayList<Color>>();
     	
-    	//defines starting
-//    	for(int i = 0; i < n; i++) {
-//    		colors.add(new ArrayList<Color>());
-//    		colors.get(i).add(pixels[(int)(pixels.length/2)][pixels[(int)(pixels.length/2)].length/n * i]);
-//    		System.out.print(colors.get(i).get(0));
-//    		System.out.print(" ");
-//    	}
-//    	Color[] colorList = {Color.BLUE, Color.RED,Color.GREEN};
+    	//defines starting colors
     	Color[] colorList = {Color.BLUE, Color.RED,Color.ORANGE, Color.MAGENTA,
                 Color.BLACK, Color.WHITE, Color.GREEN, Color.YELLOW, Color.CYAN};
-//    	Color[] colorList = {Color.BLUE, Color.RED,Color.BLACK, Color.WHITE, Color.GREEN};
     	for(int i = 0; i < n; i++) {
     		colors.add(new ArrayList<Color>());
     		colors.get(i).add(colorList[i]);
@@ -289,7 +272,6 @@ public class PhotoshopFiller extends Component {
 	        				lowind = k;
 	        			}
 	        		}
-	//        		System.out.println(max);
 	        		colors.get(lowind).add(pixels[i][j]);
 	        		
 	        		
@@ -297,7 +279,6 @@ public class PhotoshopFiller extends Component {
 	    	}
 	    	count++;
 	    	//averages pixels 
-//	    	System.out.println("");
 	    	for(int i = 0; i < colors.size(); i++) {
 	    		int size = colors.get(i).size();
 	    		int totalr = 0, totalg = 0, totalb = 0;
@@ -310,19 +291,16 @@ public class PhotoshopFiller extends Component {
 	    		colors.get(i).clear();
 				colors.get(i).add(new Color(totalr/size, totalg/size, totalb/size));
 				second[i] = colors.get(i).get(0);
-//				System.out.print(colors.get(i).get(0));
-//				System.out.print(" ");
 	    	}
 	    	if (distanceArr(first, second) > 0) {
 	    		System.out.println(distanceArr(first, second));
 	    		run = true;
 	    	}
-//	    	System.out.println("");
 	    	if(count > 110) {
 	    		break;
 	    	}
     	}
-    	System.out.println("runs = " + count);
+//    	System.out.println("runs = " + count);
     	
 
     	//simplify 
