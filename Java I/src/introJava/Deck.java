@@ -20,12 +20,6 @@ public class Deck {
 				deck[i*13 + j] = new Card(suits[i], j+1);
 			}
 		}
-		shuffle();
-		shuffle();
-		shuffle();
-		shuffle();
-		shuffle();
-		shuffle();
 	}
 	
 	public Card[] getDeck() {
