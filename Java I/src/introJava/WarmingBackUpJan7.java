@@ -74,6 +74,7 @@ public class WarmingBackUpJan7 {
 		}
 		return primes;
 	}
+	
 	private static ArrayList<Integer> primes = prime(298778);
 	
 	public String primeFactorization(int n, ArrayList<Integer> primes) {
@@ -87,6 +88,6 @@ public class WarmingBackUpJan7 {
 
 	public static void main(String[] args) {
 		WarmingBackUpJan7 runner = new WarmingBackUpJan7();
-		System.out.println(runner.primeFactorization(298778, primes));
+		System.out.println(runner.primeFactorization(26543232, primes));
 	}
 }

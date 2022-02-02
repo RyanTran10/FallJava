@@ -66,11 +66,11 @@ public class WhackAMoleFillerChallenge {
     
     // sets up my images to use
     public void defineImgs(){
-    	 Mole = Toolkit.getDefaultToolkit().getImage("CompSciMole-removebg-preview.png");
-    	 BackgroundGrass = Toolkit.getDefaultToolkit().getImage("CompSciGrass.jpeg");
-    	 BackgroundSky = Toolkit.getDefaultToolkit().getImage("CompSciSky.jpeg");
-    	 Mound = Toolkit.getDefaultToolkit().getImage("CompSciMound-removebg-preview.png");
-    	 Jump = Toolkit.getDefaultToolkit().getImage("testing.jpeg");
+    	 Mole = Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("resources/CompSciMole-removebg-preview.png"));
+    	 BackgroundGrass = Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("resources/CompSciGrass.jpeg"));
+    	 BackgroundSky = Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("resources/CompSciSky.jpeg"));
+    	 Mound = Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("resources/CompSciMound-removebg-preview.png"));
+    	 Jump = Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("resources/testing.jpeg"));
     }
     
     // sets up my arrays

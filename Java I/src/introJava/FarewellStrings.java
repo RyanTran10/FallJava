@@ -27,6 +27,5 @@ public class FarewellStrings {
 		System.out.println(longest);
 	}
 	public static void main(String[] args) {
-		pigLatin("Hello my name is jeff. How are you today!");
 	}
 }

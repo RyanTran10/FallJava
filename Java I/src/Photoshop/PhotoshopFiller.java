@@ -34,11 +34,14 @@ public class PhotoshopFiller extends Component {
     // don't forget that rgb values are limited to the range [0,255]
     public void brighten(int amount) {
         outputName = "brightened_" + outputName;
+        //goes through every pixel
         for(int i = 0; i < pixels.length; i++) {
         	for(int j = 0; j < pixels[i].length; j++) {
+        		//sets each color of each pixel to its own color + the amount of brighten 
         		int r = pixels[i][j].getRed() + amount;
         		int g = pixels[i][j].getGreen() + amount;
         		int b = pixels[i][j].getBlue() + amount;
+        		//checks to make sure the colors arent out of bounds and sets the to the max or min if they are
         		if(r > 255) r = 255;
         		else if(r < 0) r = 0;
         		if(g > 255) g = 255;
@@ -46,6 +49,7 @@ public class PhotoshopFiller extends Component {
         		if(b > 255) b = 255;
         		else if(b < 0) b = 0;
         		
+        		//sets each pixel to the new color
         		pixels[i][j] = new Color(r, g, b);
         	}
         }
@@ -56,6 +60,7 @@ public class PhotoshopFiller extends Component {
         outputName = (horizontally?"h":"v") + "_flipped_" + outputName;
         
        	if (horizontally) {
+       		// goes through each pixel array and flips it around
        		for(int i = 0; i < pixels.length; i++) {
        			Color[] temp = new Color[pixels[i].length];
        			for(int j = 0; j < pixels[i].length; j++) {
@@ -63,6 +68,7 @@ public class PhotoshopFiller extends Component {
        			}
        			pixels[i] = temp;
        		}
+       	//makes a temporary 2d array and goes through the first one setting each spot to an array
        	}else {
        		Color[][] pixels1 = new Color[pixels.length][pixels[0].length];
        		for(int i = 0; i < pixels.length; i++) {
@@ -78,12 +84,14 @@ public class PhotoshopFiller extends Component {
     public void negate() {
         outputName = "negated_" + outputName;
         
+        //goes through each pixel
         for(int i = 0; i < pixels.length; i++) {
         	for(int j = 0; j < pixels[i].length; j++) {
+        		//subtracts the current rgb values from 255 
         		int r = 255 - pixels[i][j].getRed();
         		int g = 255 - pixels[i][j].getGreen();
         		int b = 255 - pixels[i][j].getBlue();
-        		
+        		//sets each pixel to the new color
         		pixels[i][j] = new Color(r, g, b);
         	}
         }
@@ -100,16 +108,20 @@ public class PhotoshopFiller extends Component {
                 Color.BLACK, Color.WHITE, Color.GREEN, Color.YELLOW, Color.CYAN};
         outputName = "simplified_" + outputName;
         
+        // goes through each pixel
         for(int i = 0; i < pixels.length; i++) {
         	for(int j = 0; j < pixels[i].length; j++) {
         		Color closest = colorList[0];
             	double distance = distance(pixels[i][j], colorList[0]);
+            	//goes through the list of colors and finds 
         		for(int k = 1; k < colorList.length; k++) {
+        			// checks if the new distance is closer and sets distance to that
         			if(distance(pixels[i][j], colorList[k]) < distance) {
         				distance = distance(pixels[i][j], colorList[k]);
         				closest = colorList[k];
         			}
         		}
+        		// sets each pixel to the closest color
         		pixels[i][j] = closest;
         	}
         }
@@ -120,8 +132,10 @@ public class PhotoshopFiller extends Component {
     // between two colors.
     // use the 3d distance formula to calculate
     public double distance(Color c1, Color c2) {
-    		return Math.sqrt((c1.getRed()-c2.getRed())*(c1.getRed()-c2.getRed())+(c1.getGreen()-c2.getGreen())*(c1.getGreen()-c2.getGreen()+(c1.getBlue()-c2.getBlue())*(c1.getBlue()-c2.getBlue())));	// fix this
+    	return Math.sqrt(Math.pow((c1.getRed()-c2.getRed()), 2)+Math.pow((c1.getGreen()-c2.getGreen()), 2)+Math.pow((c1.getBlue()-c2.getBlue()), 2));	
+//    	return Math.sqrt(*(c1.getRed()-c2.getRed())+(c1.getGreen()-c2.getGreen())*(c1.getGreen()-c2.getGreen()+(c1.getBlue()-c2.getBlue())*(c1.getBlue()-c2.getBlue())));	// fix this
     }
+    
     
     // this blurs the image
     // to do this: at each pixel, sum the 8 surrounding pixels' rgb values 
@@ -129,11 +143,15 @@ public class PhotoshopFiller extends Component {
     // divide this sum by 9, and set it as the rgb value for the blurred image
     public void blur() {
 		outputName = "blurred_" + outputName;
+		// creates a temporary array 
 		Color[][] temp = new Color[pixels.length][pixels[0].length];
+		// radius of bluring amount 
 		int blurAmount = 1;
-		for(int i = blurAmount; i < pixels.length-blurAmount; i++) {
-			for(int j = blurAmount; j < pixels[i].length-blurAmount; j++) {
+		// goes through every pixel
+		for(int i = blurAmount; i < pixels.length - blurAmount; i++) {
+			for(int j = blurAmount; j < pixels[i].length - blurAmount; j++) {
 				int totalr = 0, totalg = 0, totalb = 0;
+				// goes through the border and sums up the colors
 				for(int k = -1*blurAmount; k <= blurAmount; k++) {
 					for(int l = -1*blurAmount; l <= blurAmount; l++) {
 						totalr += pixels[i-k][j-l].getRed();
@@ -142,18 +160,22 @@ public class PhotoshopFiller extends Component {
 					}
 				}
 //				pixels[i][j] = new Color(totalr/((blurAmount*2+1)*(blurAmount*2+1)), totalg/((blurAmount*2+1)*(blurAmount*2+1)), totalb/((blurAmount*2+1)*(blurAmount*2+1)));
+				// sets the pixel to the averaged color
 				temp[i][j] = new Color(totalr/((blurAmount*2+1)*(blurAmount*2+1)), totalg/((blurAmount*2+1)*(blurAmount*2+1)), totalb/((blurAmount*2+1)*(blurAmount*2+1)));
 			}
 		}
-		 for(int i = 0; i < pixels.length; i++) {
-        	temp[i][0] = new Color(0,0,0);
-        	temp[i][pixels[0].length-1] = new Color(0,0,0);
+		
+		// checks if any of the pixels are null
+		for(int i = 0; i < temp.length; i++) {
+        	for(int j = 0; j < temp[i].length; j++) {
+        		if(temp[i][j] == null) {
+        			temp[i][j] = pixels[i][j];
+        		}
+        	}
         }
-        for(int i = 0; i < pixels[0].length; i++) {
-        	temp[0][i] = new Color(0,0,0);
-        	temp[pixels.length-1][i] = new Color(0,0,0);
-        }
+		// sets the pixels to the new colors
         pixels = temp;
+       
 	}
     
     // this highlights the edges in the image, turning everything else black. 
@@ -164,8 +186,10 @@ public class PhotoshopFiller extends Component {
         outputName = "edged_" + outputName;
         Color[][] temp = new Color[pixels.length][pixels[0].length];
         int edgeSize = 1;
+        // goes through every pixel
         for(int i = edgeSize; i < pixels.length-edgeSize; i++) {
 			for(int j = edgeSize; j < pixels[i].length-edgeSize; j++) {
+				// goes through the surrounding pixels and sums the colors
 				int r = 0, g = 0, b = 0;
 				for(int k = -1*edgeSize; k <= edgeSize; k++) {
 					for(int l = -1*edgeSize; l <= edgeSize; l++) {
@@ -174,10 +198,11 @@ public class PhotoshopFiller extends Component {
 						b += pixels[i-k][j-l].getBlue();
 					}
 				}
+				// sets the new color
 				r = pixels[i][j].getRed()*8-(r-pixels[i][j].getRed());
 				g = pixels[i][j].getGreen()*8-(g-pixels[i][j].getGreen());
 				b = pixels[i][j].getBlue()*8-(b-pixels[i][j].getBlue());
-				
+				// checks if it is our of bounds
 				if(r > 255) r = 255;
         		else if(r < 0) r = 0;
         		if(g > 255) g = 255;
@@ -185,47 +210,135 @@ public class PhotoshopFiller extends Component {
         		if(b > 255) b = 255;
         		else if(b < 0) b = 0;
 				
+        		// sets the new array to the color
 				temp[i][j] = new Color(r,g,b);
 			}
 		}
-        for(int i = 0; i < pixels.length; i++) {
-        	temp[i][0] = new Color(0,0,0);
-        	temp[i][pixels[0].length-1] = new Color(0,0,0);
+        // checks for null pixels
+        for(int i = 0; i < temp.length; i++) {
+        	for(int j = 0; j < temp[i].length; j++) {
+        		if(temp[i][j] == null) {
+        			temp[i][j] = new Color(0,0,0);
+        		}
+        	}
         }
-        for(int i = 0; i < pixels[0].length; i++) {
-        	temp[0][i] = new Color(0,0,0);
-        	temp[pixels.length-1][i] = new Color(0,0,0);
-        }
+        //sets the picture to the new array
         pixels = temp;
     }
+    public double distance1(Color c1, Color c2) {
+//    	System.out.println((c1.getRed()-c2.getRed())*(c1.getRed()-c2.getRed())+(c1.getGreen()-c2.getGreen())*(c1.getGreen()-c2.getGreen()+(c1.getBlue()-c2.getBlue())*(c1.getBlue()-c2.getBlue())));
+		return Math.sqrt((c1.getRed()-c2.getRed())*(c1.getRed()-c2.getRed())+(c1.getGreen()-c2.getGreen())*(c1.getGreen()-c2.getGreen()+(c1.getBlue()-c2.getBlue())*(c1.getBlue()-c2.getBlue())));	// fix this
+    }
+    public double distanceArr(Color[] c1, Color[] c2) {
+    	double total = 0;
+    	for(int i = 0; i < c1.length; i++) {
+    		System.out.println("distance = " + distance1(c1[i], c2[i]));
+    		System.out.println("colors = " + c1[i] + "" + c2[i]);
+    		total += distance(c1[i], c2[i]);
+    		System.out.println("total = " + total);
+    		System.out.println("");
+    	}
+    	System.out.println(total/c1.length);
+    	return total/c1.length;
+    }
     
-    public void extra() {
-    	outputName = "extra_" + outputName;
-    	int size = 5;
-    	int area = (size*2+1)*(size*2+1);
-        for(int i = size; i < pixels.length-size; i++) {
-			for(int j = size; j < pixels[i].length-size; j++) {
-				int r = 0, g = 0, b = 0;
-				for(int k = -1*size; k <= size; k++) {
-					for(int l = -1*size; l <= size; l++) {
-						r += pixels[i-k][j-l].getRed();
-						g += pixels[i-k][j-l].getGreen();
-						b += pixels[i-k][j-l].getBlue();
-					}
-				}
-				r = pixels[i][j].getRed()*area-r-pixels[i][j].getRed();
-				g = pixels[i][j].getRed()*area-g-pixels[i][j].getGreen();
-				b = pixels[i][j].getRed()*area-b-pixels[i][j].getBlue();
-				if(r > 255) r = 255;
-        		else if(r < 0) r = 0;
-        		if(g > 255) g = 255;
-        		else if(g < 0) g = 0;
-        		if(b > 255) b = 255;
-        		else if(b < 0) b = 0;
-				
-				pixels[i][j] = new Color(r,g,b);
-			}
-		}
+    
+    public void kmeans(int n) {
+    	//take 9 starting colors-come back to at end for random 
+    	
+    	// sort all pixels into which ever color it is closest too
+    	
+    	// average all those colors and use those as starting colors
+    	// run again till change is not noticable
+    	outputName = "kmeans_" + outputName;
+    	ArrayList<ArrayList<Color>> colors = new ArrayList<ArrayList<Color>>();
+    	
+    	//defines starting
+//    	for(int i = 0; i < n; i++) {
+//    		colors.add(new ArrayList<Color>());
+//    		colors.get(i).add(pixels[(int)(pixels.length/2)][pixels[(int)(pixels.length/2)].length/n * i]);
+//    		System.out.print(colors.get(i).get(0));
+//    		System.out.print(" ");
+//    	}
+//    	Color[] colorList = {Color.BLUE, Color.RED,Color.GREEN};
+    	Color[] colorList = {Color.BLUE, Color.RED,Color.ORANGE, Color.MAGENTA,
+                Color.BLACK, Color.WHITE, Color.GREEN, Color.YELLOW, Color.CYAN};
+//    	Color[] colorList = {Color.BLUE, Color.RED,Color.BLACK, Color.WHITE, Color.GREEN};
+    	for(int i = 0; i < n; i++) {
+    		colors.add(new ArrayList<Color>());
+    		colors.get(i).add(colorList[i]);
+    	}
+    	
+
+    	//sorts
+    	int count = 0;
+    	boolean run = true;
+    	while(run) {
+    		run = false;
+    		Color[] first = new Color[n];
+    		Color[] second = new Color[n];
+	    	for(int i = 0; i < pixels.length; i++) {
+	        	for(int j = 0; j < pixels[i].length; j++) {
+	        		
+	        		int lowest = (int) distance(pixels[i][j], colors.get(0).get(0));
+	        		int lowind = 0;
+	        		
+	        		for(int k = 1; k < colors.size(); k++) {
+	        			if(lowest > (int) distance(pixels[i][j], colors.get(k).get(0))) {
+	        				lowest = (int) distance(pixels[i][j], colors.get(k).get(0));
+	        				lowind = k;
+	        			}
+	        		}
+	//        		System.out.println(max);
+	        		colors.get(lowind).add(pixels[i][j]);
+	        		
+	        		
+	        	}
+	    	}
+	    	count++;
+	    	//averages pixels 
+//	    	System.out.println("");
+	    	for(int i = 0; i < colors.size(); i++) {
+	    		int size = colors.get(i).size();
+	    		int totalr = 0, totalg = 0, totalb = 0;
+	    		for(int j = 0; j < colors.get(i).size(); j++) {
+	    			totalr += colors.get(i).get(j).getRed();
+	    			totalg += colors.get(i).get(j).getGreen();
+	    			totalb += colors.get(i).get(j).getBlue();
+	    		}
+	    		first[i] = colors.get(i).get(0);
+	    		colors.get(i).clear();
+				colors.get(i).add(new Color(totalr/size, totalg/size, totalb/size));
+				second[i] = colors.get(i).get(0);
+//				System.out.print(colors.get(i).get(0));
+//				System.out.print(" ");
+	    	}
+	    	if (distanceArr(first, second) > 0) {
+	    		System.out.println(distanceArr(first, second));
+	    		run = true;
+	    	}
+//	    	System.out.println("");
+	    	if(count > 110) {
+	    		break;
+	    	}
+    	}
+    	System.out.println("runs = " + count);
+    	
+
+    	//simplify 
+    	for(int i = 0; i < pixels.length; i++) {
+        	for(int j = 0; j < pixels[i].length; j++) {
+        		Color closest = colors.get(0).get(0);
+            	double distance = distance(pixels[i][j], colors.get(0).get(0));
+        		for(int k = 1; k < colors.size(); k++) {
+        			if(distance(pixels[i][j], colors.get(k).get(0)) < distance) {
+        				distance = distance(pixels[i][j], colors.get(k).get(0));
+        				closest = colors.get(k).get(0);
+        			}
+        		}
+        		pixels[i][j] = closest;
+        	}
+        }
     }
     
     
@@ -257,7 +370,7 @@ public class PhotoshopFiller extends Component {
 			
 			// runs the manipulations determined by the user
 			System.out.println("Enter the manipulations you would like to run on the image.\nYour "
-					+ "choices are: brighten, flip, negate, blur, edge, extra, or simplify.\nEnter each "
+					+ "choices are: brighten, flip, negate, blur, edge, or simplify.\nEnter each "
 					+ "manipulation you'd like to run, then type in 'done'.");
 			Scanner in = new Scanner(System.in);
 			String action = in.next().toLowerCase();
@@ -273,6 +386,12 @@ public class PhotoshopFiller extends Component {
 		    				System.out.println("enter \"h\" to flip horizontally, anything else to flip vertically.");
 		        			Method m = getClass().getDeclaredMethod(action, boolean.class);
 		        			m.invoke(this, in.next().equals("h"));
+		    			}
+		    			else if (action.equals("kmeans")) {
+		    				System.out.println("enter a number of colors to use");
+		    				int n = in.nextInt();
+		        			Method m = getClass().getDeclaredMethod(action, int.class);
+		        			m.invoke(this, n);
 		    			}
 		    			else {
 		        			Method m = getClass().getDeclaredMethod(action);

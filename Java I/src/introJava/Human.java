@@ -29,6 +29,10 @@ public class Human {
 		age = newAge;
 	}
 	
+	public int getHeight() {
+		return height;
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -46,6 +50,10 @@ public class Human {
 	
 	public boolean canVote(int year) {
 		return age >= 18 && year % 4 == 0;
+	}
+	
+	public boolean isTaller(Human h) {
+		return(height > h.getHeight());
 	}
 	
 	public String display() {
