@@ -44,10 +44,6 @@ public class Electronic {
 		memory += n;
 	}
 	
-	public void setMemory(int n) {
-		memory = n;
-	}
-	
 	public static void main(String[] args) {
 	}
 }

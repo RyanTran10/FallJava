@@ -11,8 +11,8 @@ public class Computer extends Electronic{
 	}
 	
 	public void upgrade(int n, int n1) {
-		setMemory(n);
-		hardDriveSpace = n1;
+		super.upgrade(n);
+		hardDriveSpace += n1;
 	}
 	
 	public void changeSize(String s) {
