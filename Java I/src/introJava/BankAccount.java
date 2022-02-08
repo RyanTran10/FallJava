@@ -7,35 +7,36 @@ import java.util.Arrays;
 //toString(): this method should simply return a display of how much money is in the account.
 public class BankAccount {
 	private String name;
-	private int balance;
-	private double interest;
+	private double balance;
 	
-	public BankAccount(String n, int b, double i) {
+	public BankAccount(String n, double b) {
 		this.name = n;
 		this.balance = b;
-		this.interest = i;
 	}
 	
-	public BankAccount(String n, double i) {
+	public BankAccount(String n) {
 		this.name = n;
 		this.balance = 0;
-		this.interest = i;
 	}
 	
-	public void desposit(int n) {
+	public void deposit(double n) {
 		balance += n;
 	}
 	
-	public void withdraw(int n) {
+	public void withdraw(double n) {
 		balance -= n;
 	}
 	
-	public void addInterest() {
-		balance += (interest*balance);
+	public double getBal() {
+		return balance;
 	}
 	
-	public String display() {
-		return "The account in the name of " + name + " has a balence of " + balance + " with an interest rate of " + interest;
+	public String getName() {
+		return name;
+	}
+	
+	public String toString() {
+		return "The account in the name of " + name + " has a balence of " + balance;
 	}
 	
 	public static void main(String[] args) {
