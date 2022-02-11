@@ -8,7 +8,7 @@ import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class BouncingBall extends JPanel {
+public class BouncingBall1 extends JPanel {
 	
 	// constants that are predefined and won't change as the program runs 
 	// (you can feel free to change them though)
@@ -85,12 +85,12 @@ public class BouncingBall extends JPanel {
 
 	// very simple main method to get the game going
 	public static void main(String[] args) {
-		new BouncingBall(); 
+		new BouncingBall1(); 
 	}
  
 	// a constructor which sets up the layout and settings of our graphics.
 	// do not play around with this method unless you know what you are doing!
-	public BouncingBall() {
+	public BouncingBall1() {
 		JFrame frame = new JFrame();
 		frame.setSize(WIDTH, WINDOW_HEIGHT);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
