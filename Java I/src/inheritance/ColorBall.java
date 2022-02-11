@@ -12,7 +12,7 @@ public class ColorBall extends BouncingBall {
 	
 	public void draw(Graphics g) {
 		count++;
-		if(count % 100 == 0) {
+		if(count % 100 == 0 || count == 1) {
 			setColor(new Color((int) (Math.random()*255),(int) (Math.random()*255),(int) (Math.random()*255)));
 		}
 		super.draw(g);	
