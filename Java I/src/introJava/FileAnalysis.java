@@ -109,13 +109,13 @@ public class FileAnalysis {
 	// returns the ten most common words (of length > 5) in 
 	// the file, in order from most common to least common
 	private String[] tenMostCommonWords() {
-		
+		return new String[0];
 		// your code here
 	}
 	
 	// returns the longest sentence in the file
 	private String longestSentence() {
-		
+		return null;
 		// your code here
 	}
 	
