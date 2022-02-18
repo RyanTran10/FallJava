@@ -8,37 +8,37 @@ public class DepressedBot extends ChatBot {
 
 	@Override
 	public void sayHi() {
-		// TODO Auto-generated method stub
+		System.out.println("I don't care how you are today.");
 
 	}
 
 	@Override
 	public void sayBye() {
-		// TODO Auto-generated method stub
+		System.out.println("I don't want to talk to you ever again");
 
 	}
 
 	@Override
 	public void startConversation() {
-		// TODO Auto-generated method stub
+		System.out.println("I hatae programming what about you.");
 
 	}
 
 	@Override
 	public void askFirstQuestion() {
-		// TODO Auto-generated method stub
+		System.out.println("I don't have a favorite color but if I had to choose one it would be black because death.");
 
 	}
 
 	@Override
 	public void askSecondQuestion() {
-		// TODO Auto-generated method stub
+		System.out.println("I don't have a favorite food I just eat everything.");
 
 	}
 
 	@Override
 	public void askThirdQuestion() {
-		// TODO Auto-generated method stub
+		System.out.println("I don't have friends. Do you?");
 
 	}
 

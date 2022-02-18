@@ -8,37 +8,37 @@ public class SarcasticBot extends ChatBot {
 
 	@Override
 	public void sayHi() {
-		System.out.println("Hi how are you today!!!!");
+		System.out.println("I don't say Hi.");
 
 	}
 
 	@Override
 	public void sayBye() {
-		System.out.println("It was fun talking! I hope to see you later");
+		System.out.println("Hope to see you again, Jk.");
 
 	}
 
 	@Override
 	public void startConversation() {
-		System.out.println("Do you like to program?");
+		System.out.println("Do you like to program? Oh wait, I don't care.");
 
 	}
 
 	@Override
 	public void askFirstQuestion() {
-		System.out.println("What is your favorite color? Mine is pink!");
+		System.out.println("What is your favorite color? Oh wait, I don't care.");
 
 	}
 
 	@Override
 	public void askSecondQuestion() {
-		System.out.println("What is your favorite food? I don't have one becuase I love all foods!");
+		System.out.println("What is your favorite food? Oh wait, I don't care.");
 
 	}
 
 	@Override
 	public void askThirdQuestion() {
-		System.out.println("Who is your best friend? I don't have one because I am friends with everyone!");
+		System.out.println("Who is your best friend? Oh wait, I don't care.");
 
 	}
 

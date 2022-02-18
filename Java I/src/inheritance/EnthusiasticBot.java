@@ -8,37 +8,37 @@ public class EnthusiasticBot extends ChatBot {
 
 	@Override
 	public void sayHi() {
-		// TODO Auto-generated method stub
+		System.out.println("Hi how are you today!!!!");
 
 	}
 
 	@Override
 	public void sayBye() {
-		// TODO Auto-generated method stub
+		System.out.println("It was fun talking! I hope to see you later");
 
 	}
 
 	@Override
 	public void startConversation() {
-		// TODO Auto-generated method stub
+		System.out.println("Do you like to program?");
 
 	}
 
 	@Override
 	public void askFirstQuestion() {
-		// TODO Auto-generated method stub
+		System.out.println("What is your favorite color? Mine is pink!");
 
 	}
 
 	@Override
 	public void askSecondQuestion() {
-		// TODO Auto-generated method stub
+		System.out.println("What is your favorite food? I don't have one becuase I love all foods!");
 
 	}
 
 	@Override
 	public void askThirdQuestion() {
-		// TODO Auto-generated method stub
+		System.out.println("Who is your best friend? I don't have one because I am friends with everyone!");
 
 	}
 
