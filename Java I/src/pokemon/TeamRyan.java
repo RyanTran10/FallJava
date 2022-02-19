@@ -15,6 +15,7 @@ public class TeamRyan extends PokeTeam {
 		team.add(new ryan());
 		team.add(new James());
 		return team;
+		//slightly less than 30 mins lv 111
 	}
 
 }
