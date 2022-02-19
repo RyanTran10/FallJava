@@ -13,10 +13,7 @@ public class ShapeRunner {
 		for(int i = 0; i< shapes.length; i++) {
 			shapes[i].move(5, 5);
 		}
-		// your code here
 	}
-	
-	// fill in your shape list here
 	public void setup() {
 		
 		shapes = new Shape[] {new Rectangle(0,0, 50, 50), new Oval(50,50,50,50), new Star(300,300, 50)};

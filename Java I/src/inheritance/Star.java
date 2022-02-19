@@ -29,6 +29,7 @@ public class Star extends Shape {
 			polygonX[(i-18)/36] = getX() + (int) (innerRadius * Math.cos(Math.toRadians(i)));
 			polygonY[(i-18)/36] = getY() - (int) (innerRadius * Math.sin(Math.toRadians(i))); 
 		}
+		g.setColor(Color.BLACK);
 		g.fillPolygon(polygonX, polygonY, STAR_POINTS);
 	}
 
