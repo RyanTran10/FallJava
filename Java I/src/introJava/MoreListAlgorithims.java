@@ -55,21 +55,8 @@ public class MoreListAlgorithims {
 			a.set(a.size()-1-i, temp);
 		}
 	}
-	
-
-	public static void reverseInt(ArrayList<Integer> a) {
-		for(int i = 0; i < a.size()/2; i++) {
-			int temp = a.get(i);
-			a.set(i, a.get(a.size()-i-1));
-			a.set(a.size()-1-i, temp);
-			if(i == 1) {
-				System.out.println("i = 1" + a);
-			}
-		}
-	}
 
 	public static void main(String[] args) {
-		ArrayList<Integer> b = randomNums(10, 10);
 		ArrayList<Double> a = randomDoubles(10, 10);
 		System.out.println(a);
 		reverse(a);
