@@ -69,6 +69,7 @@ public class Bishop extends Piece {
 
 	@Override
 	public boolean check(int kingr, int kingc, int r, int c, Board board) {
+		// gets moves and checks if the king's position is in it
 		ArrayList<int[]> moves = new ArrayList<int[]>();
 		moves = getMoves(board, r, c);
 		for(int[] a: moves) {
