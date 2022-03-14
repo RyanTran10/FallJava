@@ -3,9 +3,9 @@ package Chess;
 import java.awt.Image;
 import java.util.ArrayList;
 
-public class Queen extends Piece {
+public class Bishop extends Piece {
 
-	public Queen(int turn, Image img) {
+	public Bishop(int turn, Image img) {
 		super(turn, img);
 		// TODO Auto-generated constructor stub
 	}
@@ -13,47 +13,6 @@ public class Queen extends Piece {
 	@Override
 	public ArrayList<int[]> getMoves(Board board, int r, int c) {
 		ArrayList<int[]> moves = new ArrayList<int[]>();
-		//vertical up
-		for(int i = r-1; i >= 0; i--) {
-			if(board.getBoard()[i][c].isEmpty()) {
-				moves.add(new int[] {i,c});
-			} else if (board.getBoard()[i][c].getTeam() != getTeam()) {
-				moves.add(new int[] {i,c});			
-				break;
-			}else {
-				break;
-			}
-		}
-		//vertical down
-		for(int i = r+1; i < 8; i++) {
-			if(board.getBoard()[i][c].isEmpty()) {
-				moves.add(new int[] {i,c});
-			}	else if (board.getBoard()[i][c].getTeam() != getTeam()) {
-				moves.add(new int[] {i,c});
-				break;
-			}else
-				break;
-		}
-		//horizontal left
-		for(int i = c-1; i >= 0; i--) {
-			if(board.getBoard()[r][i].isEmpty()) {
-				moves.add(new int[] {r,i});
-			} else if (board.getBoard()[r][i].getTeam() != getTeam()) {
-				moves.add(new int[] {r,i});
-				break;
-			} else
-				break;
-		}
-		//horizontal right
-		for(int i = c+1; i < 8; i++) {
-			if(board.getBoard()[r][i].isEmpty()) {
-				moves.add(new int[] {r,i});
-			} else if (board.getBoard()[r][i].getTeam() != getTeam()) {
-				moves.add(new int[] {r,i});
-				break;
-			} else
-				break;
-		}
 		//nw (c- r-)
 		for(int i = 1; i < 8; i++) {
 			if((r-i < 0 || c-i < 0) || board.getBoard()[r-i][c-i].getTeam() == getTeam()) {
@@ -65,7 +24,7 @@ public class Queen extends Piece {
 				break;
 			}
 		}
-		//se (c+ r+)
+//		//se (c+ r+)
 		for(int i = 1; i < 8; i++) {
 			if((r+i > 7 || c+i > 7 ) || board.getBoard()[r+i][c+i].getTeam() == getTeam()) {
 				break;
@@ -76,7 +35,8 @@ public class Queen extends Piece {
 				break;
 			}
 		}
-		//ne (c+ r-)
+//		
+//		//ne (c+ r-)
 		for(int i = 1; i < 8; i++) {
 			if((r-i < 0 || c+i > 7 ) || board.getBoard()[r-i][c+i].getTeam() == getTeam()) {
 				break;
@@ -87,7 +47,7 @@ public class Queen extends Piece {
 				break;
 			}
 		}
-		//sw (c- r+)
+//		//sw (c- r+)
 		for(int i = 1; i < 8; i++) {
 			if((r+i > 7 || c-i < 0 ) || board.getBoard()[r+i][c-i].getTeam() == getTeam()) {
 				break;
@@ -103,17 +63,17 @@ public class Queen extends Piece {
 
 	@Override
 	public boolean isEmpty() {
+		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	// gets moves and checks if the king's position is in it
 	public boolean check(int kingr, int kingc, int r, int c, Board board) {
 		ArrayList<int[]> moves = new ArrayList<int[]>();
 		moves = getMoves(board, r, c);
-		for(int[] cord: moves) {
-			if(cord[0] == kingr && cord[1] == kingc) {
-				return true;
+		for(int[] a: moves) {
+			if(a[0] == kingr && a[1] == kingc) {
+			return true;
 			}
 		}
 		return false;
