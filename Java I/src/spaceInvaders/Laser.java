@@ -16,7 +16,11 @@ public class Laser extends Rectangle {
 	
 	// moves y by the inputted amount
 	public void moveY(int dY) {
-		y += dY;
+		if(team == 0) {
+			y += dY;
+		} else { 
+			y -= dY;
+		}
 	}
 	
 	public int getTeam() {

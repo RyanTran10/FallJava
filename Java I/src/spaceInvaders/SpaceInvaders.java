@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
-public class SpaceInvadersFiller {
+public class SpaceInvaders {
 	
 	// constants for various aspects of the game
 	// feel free to change them to make the game harder/easier
@@ -20,7 +20,7 @@ public class SpaceInvadersFiller {
 			LASERWIDTH = 8, LASERHEIGHT = 25, PLAYERENEMYWIDTH = 50, PLAYERENEMYHEIGHT = 35;
 	
 	// determines the difficulty. The closer to 1.0, the easier the game 
-	private final double DIFFICULTY = .00;
+	private final double DIFFICULTY = .99;
 	
 	// our list of aliens
 	private ArrayList<SpaceThing> aliens = new ArrayList<SpaceThing>();
@@ -43,25 +43,37 @@ public class SpaceInvadersFiller {
 	// move the aliens, the lasers, and the player. Loops aliens when necessary, 
 	// and randomly shoots lasers from the aliens
 	public void move() {
-		
-		for(SpaceThing s : aliens) {
-			s.moveX(ALIENSPEED);
-			if(s.getX() > WIDTH) {
-				s.moveY(PLAYERENEMYHEIGHT);
-				s.setX(0);
-			} 
-			if(1-DIFFICULTY > Math.random()) {
-				alienLasers.add(new Laser(0, (int)(s.getX() + PLAYERENEMYWIDTH/2), (int)(s.getY() + PLAYERENEMYHEIGHT), LASERWIDTH, LASERHEIGHT));
-				System.out.println("EHHH");
+		if(!won && !lost) {
+			for(SpaceThing s : aliens) {
+				s.moveX(ALIENSPEED);
+				if(s.getX() > WIDTH) {
+					s.moveY(PLAYERENEMYHEIGHT);
+					s.setX(0);
+				} 
+				if(DIFFICULTY < Math.random()) {
+					alienLasers.add(new Laser(0, (int)(s.getX() + PLAYERENEMYWIDTH/2), (int)(s.getY() + PLAYERENEMYHEIGHT), LASERWIDTH, LASERHEIGHT));
+				}
+	
 			}
-
+			
+			for(int i = 0; i < alienLasers.size(); i++) {
+				alienLasers.get(i).moveY(LASERSPEED);
+				if (alienLasers.get(i).getY() > HEIGHT) {
+					alienLasers.remove(i);
+				}
+				
+			}
+			
+			for(int i = 0; i < playerLasers.size(); i++) {
+				playerLasers.get(i).moveY(LASERSPEED);
+				if (playerLasers.get(i).getY() < 0) {
+					playerLasers.remove(i);
+				}
+				
+			}
+			
+			player.moveX(playerSpeed);
 		}
-		
-		for(Laser s : alienLasers) {
-			s.moveY(LASERSPEED);
-		}
-		
-		player.moveX(playerSpeed);
 		
 	}
 	
@@ -69,7 +81,25 @@ public class SpaceInvadersFiller {
 	// and between player lasers and the aliens
 	// check if the aliens have reached the ground
 	public void checkCollisions() {
+		for(int i = 0; i < alienLasers.size(); i++) {
+			if (alienLasers.get(i).intersects(player)) {
+				alienLasers.remove(i);
+				lives--;
+			}
+			if(lives == 0) {
+				lost = true;
+			}
+			
+		}
 		
+		for(int i = 0; i < playerLasers.size(); i++) {
+			for(int j = 0; j < aliens.size(); j++) {
+				if (playerLasers.get(i).intersects(aliens.get(j))) {
+					playerLasers.remove(i);
+					aliens.remove(j);
+				}
+			}
+		}
 		
 	}
 	
@@ -89,8 +119,9 @@ public class SpaceInvadersFiller {
 	// adds to the list. if there are 4 lasers on the screen, removes a laser and 
 	// replaces it with this new one
 	public void fireLaser() {
-		
-		// your code here
+		if(playerLasers.size() <= 4) {
+			playerLasers.add(new Laser(1, (int)(player.getX() + PLAYERENEMYWIDTH/2), (int)(player.getY()), LASERWIDTH, LASERHEIGHT));
+		}
 	}
 	
 	// draw a black background along with your lasers, aliens, and player here
@@ -102,6 +133,9 @@ public class SpaceInvadersFiller {
 			s.draw(g);
 		}
 		for(Laser l: alienLasers) {
+			l.draw(g);
+		}
+		for(Laser l: playerLasers) {
 			l.draw(g);
 		}
 		
@@ -118,7 +152,7 @@ public class SpaceInvadersFiller {
 	
 	// ******* DON'T TOUCH BELOW CODE ************//
 	
-	public SpaceInvadersFiller() {
+	public SpaceInvaders() {
 		setup();
 		JFrame frame = new JFrame();
 		frame.setSize(WIDTH, HEIGHT);
@@ -185,6 +219,6 @@ public class SpaceInvadersFiller {
 	}
 	
 	public static void main(String[] args) {
-		new SpaceInvadersFiller();
+		new SpaceInvaders();
 	}
 }
