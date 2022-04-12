@@ -9,6 +9,6 @@ public class JosephusProblem {
 	    return res + 1;
 	}
 	public static void main(String[] args) {
-		System.out.println(josephus(10000000));
+		System.out.println(josephus(6));
 	}
 }
