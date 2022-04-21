@@ -33,17 +33,31 @@ public class SpaceInvaders {
 	private SpaceThing player;
 	
 	// the current speed of the player as well as their remaining lives
-	private int lives = 3, playerSpeed = 0;
+	private int lives = 300, playerSpeed = 0;
 	
 	// booleans to keep track of the game's progress
 	private boolean lost = false, paused = true;
-	private boolean won = false;
+	private boolean won = false, boss = false;
+	
+	private ArrayList<Boss> BossSummons = new ArrayList<Boss>();
 	
 	
 	// move the aliens, the lasers, and the player. Loops aliens when necessary, 
 	// and randomly shoots lasers from the aliens
 	public void move() {
 		if(!won && !lost) {
+			for(Boss s : BossSummons) {
+				s.moveX(ALIENSPEED/2);
+				if(s.getX() > WIDTH) {
+					s.moveY(PLAYERENEMYHEIGHT);
+					s.setX(0);
+				} 
+				if(DIFFICULTY < Math.random()) {
+					alienLasers.add(new Laser(0, (int)(s.getX() + PLAYERENEMYWIDTH/2), (int)(s.getY() + PLAYERENEMYHEIGHT), LASERWIDTH, LASERHEIGHT));
+				}
+	
+			}
+			
 			for(SpaceThing s : aliens) {
 				s.moveX(ALIENSPEED);
 				if(s.getX() > WIDTH) {
@@ -81,6 +95,51 @@ public class SpaceInvaders {
 	// and between player lasers and the aliens
 	// check if the aliens have reached the ground
 	public void checkCollisions() {
+		if(boss) {
+			bossCollisions();
+		}
+		if(!boss) {
+			for(int i = 0; i < alienLasers.size(); i++) {
+				if (alienLasers.get(i).intersects(player)) {
+					alienLasers.remove(i);
+					lives--;
+				}
+				if(lives == 0) {
+					lost = true;
+				}
+				
+			}
+			
+			for(int i = 0; i < aliens.size(); i++) {
+				for(int j = 0; j < playerLasers.size(); j++) {
+					if (playerLasers.get(j).intersects(aliens.get(i))) {
+						playerLasers.remove(j);
+						aliens.remove(i);
+						i--;
+						break;
+					}
+				}
+			}
+			
+			for(int i = 0; i < aliens.size(); i++) {
+				if(aliens.get(i).getY()+(PLAYERENEMYHEIGHT*2) > HEIGHT) {
+					lost = true;
+				}
+			}
+			if (aliens.size() == 0) {
+				boss = true;
+				boss();
+				return;
+			}
+		}
+		
+	}
+	
+	public void boss() {
+		BossSummons.add(new Boss(WIDTH/2-(PLAYERENEMYWIDTH*4), 0, PLAYERENEMYWIDTH*8, PLAYERENEMYHEIGHT*8, "Images/alien.png", (int)(Math.pow(2, 3)), 3));
+	}
+	
+	public void bossCollisions() {
 		for(int i = 0; i < alienLasers.size(); i++) {
 			if (alienLasers.get(i).intersects(player)) {
 				alienLasers.remove(i);
@@ -91,16 +150,34 @@ public class SpaceInvaders {
 			}
 			
 		}
-		
-		for(int i = 0; i < playerLasers.size(); i++) {
-			for(int j = 0; j < aliens.size(); j++) {
-				if (playerLasers.get(i).intersects(aliens.get(j))) {
-					playerLasers.remove(i);
-					aliens.remove(j);
+		for(int i = 0; i < BossSummons.size(); i++) {
+			for(int j = 0; j < playerLasers.size(); j++) {
+				if (playerLasers.get(j).intersects(BossSummons.get(i))) {
+					BossSummons.get(i).hit();
+					playerLasers.remove(j); 
+					if(BossSummons.get(i).getHealth() <= 0) {
+						if(BossSummons.get(i).getTier() > 0) {
+							BossSummons.add(new Boss(BossSummons.get(i).x, BossSummons.get(i).y, (int)(PLAYERENEMYWIDTH*Math.pow(2, BossSummons.get(i).getTier()-1)), (int)(PLAYERENEMYHEIGHT*Math.pow(2, BossSummons.get(i).getTier()-1)), "Images/alien.png", (int)(Math.pow(2, BossSummons.get(i).getTier()-1)), BossSummons.get(i).getTier()-1));
+							BossSummons.add(new Boss(BossSummons.get(i).x, BossSummons.get(i).y + (int)(PLAYERENEMYHEIGHT*Math.pow(2, BossSummons.get(i).getTier()-1)), (int)(PLAYERENEMYWIDTH*Math.pow(2, BossSummons.get(i).getTier()-1)), (int)(PLAYERENEMYHEIGHT*Math.pow(2, BossSummons.get(i).getTier()-1)), "Images/alien.png", (int)(Math.pow(2, BossSummons.get(i).getTier()-1)), BossSummons.get(i).getTier()-1));
+							BossSummons.add(new Boss(BossSummons.get(i).x + (int)(PLAYERENEMYWIDTH*Math.pow(2, BossSummons.get(i).getTier()-1)), BossSummons.get(i).y, (int)(PLAYERENEMYWIDTH*Math.pow(2, BossSummons.get(i).getTier()-1)), (int)(PLAYERENEMYHEIGHT*Math.pow(2, BossSummons.get(i).getTier()-1)), "Images/alien.png", (int)(Math.pow(2, BossSummons.get(i).getTier()-1)), BossSummons.get(i).getTier()-1));
+							BossSummons.add(new Boss(BossSummons.get(i).x + (int)(PLAYERENEMYWIDTH*Math.pow(2, BossSummons.get(i).getTier()-1)), BossSummons.get(i).y + (int)(PLAYERENEMYHEIGHT*Math.pow(2, BossSummons.get(i).getTier()-1)), (int)(PLAYERENEMYWIDTH*Math.pow(2, BossSummons.get(i).getTier()-1)), (int)(PLAYERENEMYHEIGHT*Math.pow(2, BossSummons.get(i).getTier()-1)), "Images/alien.png", (int)(Math.pow(2, BossSummons.get(i).getTier()-1)), BossSummons.get(i).getTier()-1));
+						}
+						BossSummons.remove(i);
+						i--;
+						break;
+					}
 				}
 			}
 		}
-		
+		if (BossSummons.size() == 0) {
+			won = true;
+			return;
+		}
+		for(int i = 0; i < BossSummons.size(); i++) {
+			if(BossSummons.get(i).getY() > HEIGHT) {
+				lost = true;
+			}
+		}
 	}
 	
 	// set up your variables, lists, etc here
@@ -119,7 +196,7 @@ public class SpaceInvaders {
 	// adds to the list. if there are 4 lasers on the screen, removes a laser and 
 	// replaces it with this new one
 	public void fireLaser() {
-		if(playerLasers.size() <= 4) {
+		if(playerLasers.size() < 40) {
 			playerLasers.add(new Laser(1, (int)(player.getX() + PLAYERENEMYWIDTH/2), (int)(player.getY()), LASERWIDTH, LASERHEIGHT));
 		}
 	}
@@ -132,6 +209,11 @@ public class SpaceInvaders {
 		for(SpaceThing s : aliens) {
 			s.draw(g);
 		}
+		
+		for(Boss s : BossSummons) {
+			s.draw(g);
+		}
+		
 		for(Laser l: alienLasers) {
 			l.draw(g);
 		}

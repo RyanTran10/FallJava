@@ -43,4 +43,15 @@ public class SpaceThing extends Rectangle {
 	public void draw(Graphics g) {
 		g.drawImage(img, x, y, null);
 	}
+	
+	public int hit() {
+		return -1;
+	}
+	public int getHealth() {
+		return -1;
+	}
+	
+	public int getTier() {
+		return -1;
+	}
 }
