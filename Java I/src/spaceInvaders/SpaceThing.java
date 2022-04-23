@@ -44,6 +44,7 @@ public class SpaceThing extends Rectangle {
 		g.drawImage(img, x, y, null);
 	}
 	
+	// methods for the boss
 	public int hit() {
 		return -1;
 	}

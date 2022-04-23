@@ -23,6 +23,7 @@ public class Laser extends Rectangle {
 		}
 	}
 	
+	//returns the team of the laser 
 	public int getTeam() {
 		return team;
 	}
