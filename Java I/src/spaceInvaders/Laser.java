@@ -30,7 +30,7 @@ public class Laser extends Rectangle {
 	
 	// draws the image corresponding with this alien/player
 	public void draw(Graphics g) {
-		g.setColor(Color.red);
+		g.setColor(team == 0 ? Color.red : Color.magenta);
 		g.fillRect(x, y, width, height);
 	}
 
